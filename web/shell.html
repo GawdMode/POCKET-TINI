@@ -1,0 +1,102 @@
+<title>Pocket TINI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: one column, the device in the middle, its readout and test controls underneath. */
+:root {
+  --bg: #EEEAF2;
+  --panel: #FFFFFF;
+  --ink: #2B2230;
+  --muted: #6D6474;
+  --device: #2B2230;
+  --accent: #F2546B;
+  --line: #DCD5E2;
+  --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17131B; --panel: #221C27; --ink: #F1ECF4; --muted: #A79DAE;
+    --device: #0B080D; --accent: #FF7A8C; --line: #3A3141; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17131B; --panel: #221C27; --ink: #F1ECF4; --muted: #A79DAE;
+  --device: #0B080D; --accent: #FF7A8C; --line: #3A3141; color-scheme: dark;
+}
+html, body { min-height: 100%; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 32px;
+}
+main { max-width: 420px; margin: 0 auto; display: grid; gap: 16px; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+h1 { font-family: var(--display); font-weight: 600; font-size: 26px; margin: 0; letter-spacing: 0.01em; }
+.build { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.device {
+  background: var(--device); border-radius: 34px; padding: 14px;
+  box-shadow: 0 14px 30px rgba(43, 34, 48, 0.25);
+}
+canvas {
+  display: block; width: 100%; max-width: 100%; aspect-ratio: 368 / 448; height: auto;
+  border-radius: 22px; touch-action: manipulation; cursor: pointer; background: #000;
+}
+.readout { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; display: grid; gap: 6px; }
+.who { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.name { font-family: var(--display); font-weight: 600; font-size: 22px; }
+.clock { font-variant-numeric: tabular-nums; color: var(--muted); }
+.status { color: var(--ink); min-height: 1.5em; }
+.bond { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bond b { color: var(--accent); }
+.tools { display: grid; gap: 10px; }
+.label { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
+button {
+  font: 600 14px var(--body); color: var(--ink); background: var(--panel);
+  border: 1.5px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+}
+button[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+button.danger { border-color: var(--accent); color: var(--accent); }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+</style>
+
+<main>
+  <header>
+    <h1>Pocket TINI</h1>
+    <span class="build">Milestone 1 test build</span>
+  </header>
+
+  <div class="device">
+    <canvas id="screen" width="368" height="448" aria-label="Your Tini's room. Tap your Tini to pet it, or tap the floor to call it over."></canvas>
+  </div>
+
+  <section class="readout" aria-live="polite">
+    <div class="who"><span class="name" id="name">…</span><span class="clock" id="clock">--:--</span></div>
+    <div class="status" id="status">Waking up your Tini…</div>
+    <div class="bond">Pets so far: <b id="pets">0</b></div>
+  </section>
+
+  <section class="tools">
+    <span class="label">Test speed</span>
+    <div class="row" role="group" aria-label="Test speed">
+      <button id="speed-1" aria-pressed="true">Real time</button>
+      <button id="speed-10" aria-pressed="false">10×</button>
+      <button id="speed-60" aria-pressed="false">60×</button>
+      <button id="speed-600" aria-pressed="false">600×</button>
+      <button id="clock-reset">Back to my clock</button>
+    </div>
+    <div class="row">
+      <button id="new-tini" class="danger">New random Tini</button>
+    </div>
+    <p class="hint">Tap your Tini to pet it. Tap the floor and it walks over. At night (10 pm to 7 am) it dozes; a tap wakes it for a bit. Your Tini is saved in this browser.</p>
+  </section>
+</main>
+
+<script>
+const WASM_B64 = "__WASM_BASE64__";
+/*__SHELL_JS__*/
+</script>

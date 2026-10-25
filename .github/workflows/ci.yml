@@ -1,0 +1,22 @@
+name: Build and test
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang and the WebAssembly linker
+        run: sudo apt-get update && sudo apt-get install -y clang lld
+      - name: Test the core
+        run: make test
+      - name: Build the browser page
+        run: make web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pocket-tini-web
+          path: dist/index.html
